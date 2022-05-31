@@ -1,0 +1,16 @@
+Github repo - project123
+
+
+project>git init                        - inititalizing localrepo
+
+project>git add .                      - adding files to staging area
+
+project>git commit -m "first commit"  - commiting files into local repository
+
+project>git branch -M main            - breanch creation
+
+project>git remote add origin https://github.com/........    - adding remote repository name
+
+project>git push -u origin main   - adding/pusing files into remote repository
+
+
