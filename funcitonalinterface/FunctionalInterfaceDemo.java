@@ -1,4 +1,4 @@
-package funcitonalinterface;
+package com.infosys.funcitonalinterface;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public class FunctionalInterfaceDemo {
 
 	public static void main(String[] args) {
-	/*	Function<Integer, Integer> f = (v) -> v * 10;
+		Function<Integer, Integer> f = (v) -> v * 10;
 		System.out.println(f.apply(6));
 		
 		Function<String,String> f1=(s)->s.toUpperCase();
@@ -36,23 +36,21 @@ public class FunctionalInterfaceDemo {
 		//l.forEach(n->System.out.println(n));
 		l.forEach(System.out::println); //method ref
 		
-*/
-		Consumer<String> consumer= (x) -> System.out.println(x.toUpperCase());  // accept take input but not return
-		consumer.accept("infosys");
+/*
+		Consumer<Integer> consumer= x -> System.out.println(x);
+		consumer.accept(99);
 		
-		Supplier<Double> b=()-> 678.87;//doesnt take input but allways return values  get
+		Supplier<String> b=()-> " Welcome to Supplier Lambda";
 		System.out.println(b.get()); 
 		
+		Predicate<Integer> p=   n->n%5==0; 
 		
-		
-		Predicate<Integer> p=   n->n%5==0; //return boolean test
-		
-		System.out.println(p.test(43));
+		System.out.println(p.test(40));
 		
 		Function<Long,Long> add=new Add();
 		Long result=add.apply(50l);
 		System.out.println(result);
-		
+		*/
 	}
 }
 class Add implements Function<Long,Long> {
