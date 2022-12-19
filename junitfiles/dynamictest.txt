@@ -1,0 +1,66 @@
+
+@TestFactory
+Collection<DynamicTest> dynamicTestsWithCollection() {
+    return Arrays.asList(
+      DynamicTest.dynamicTest("Add test",
+        () -> assertEquals(2, Math.addExact(1, 1))),
+      DynamicTest.dynamicTest("Multiply Test",
+        () -> assertEquals(4, Math.multiplyExact(2, 2))));
+}
+
+
+public class Junit5_Dynamic_Tests {
+  
+  // Static test 1
+  @Test
+  void test_Add() {
+    assertEquals(5, MathUtil.add(3, 2));
+  }
+  
+  // This method produces Dynamic test cases
+  @TestFactory
+    Collection<DynamicTest> dynamicTestsFromCollection() {
+    
+        return Arrays.asList(
+            dynamicTest("1st dynamic test", () -> assertTrue(MathUtil.isPrime(13))),
+            dynamicTest("2nd dynamic test", () -> assertEquals(5, MathUtil.devide(25, 5)))
+        );
+    }
+  // Static test 2
+  @Test
+  void test_Devide() {
+    assertEquals(5, MathUtil.devide(25, 5));
+  }
+}
+
+
+public class Junit5_Dynamic_Another_Test {
+  @TestFactory
+  DynamicTest dynamicTest() {
+    return DynamicTest.dynamicTest("Single dynamic test", 
+        () -> assertTrue(MathUtil.isPrime(13)));
+  }
+  @TestFactory
+  DynamicContainer dynamicTestsFromStream() {
+    return DynamicContainer.dynamicContainer("DynamicContainer",
+      Stream.of(
+          DynamicTest.dynamicTest("1st container test",
+              () -> assertTrue(MathUtil.isPrime(13))),
+          DynamicTest.dynamicTest("2nd container test",
+              () -> assertEquals(5, MathUtil.devide(25, 5))
+      )));
+  }
+  
+  // This method produces Dynamic test cases
+  @TestFactory
+  Stream<DynamicNode> dynamicTestsFromCollection() {
+    return Stream.of(7, 13)
+          .map(number -> DynamicContainer.dynamicContainer("Prime or Odd Test"+number,
+        Stream.of(
+          DynamicTest.dynamicTest("is number "+number+" prime?",
+              () -> assertTrue(MathUtil.isPrime(number))),
+          DynamicTest.dynamicTest("is number "+number+" odd?", 
+              () -> assertFalse(MathUtil.isEven(number))
+        ))));
+  }
+}
