@@ -1,0 +1,218 @@
+create database employeeproject
+use employeeproject
+
+-----Departmetn table
+
+create table Department(DEPTNO  char(3) primary key,DEPTNAME VARCHAR(36),MGRNO char(6),ADMRDEPT char(3),
+LOCATION char(5))
+
+-----employee table
+
+create table employee(EMPNO char(6) primary key,FIRSTNME VARCHAR(20),MIDINIT CHAR(1),LASTNAME VARCHAR(15),
+WORKDEPT CHAR(3) references Department(DEPTNO),PHONENO char(10),HIREDATE DATE,JOB  CHAR(8),Education SMALLINT,
+SEX CHAR(1),BIRTHDATE  DATE,SALARY  DECIMAL(9, 2),BONUS DECIMAL(9, 2),Commission DECIMAL(9, 2))
+
+-----PROJECT table
+
+create table PROJECT(PROJNO CHAR(6) primary key,PROJNAME VARCHAR(24),DEPTNO CHAR(3) references Department(DEPTNO),
+RESPEMP CHAR(6) references employee(EMPNO),PRSTAFF DECIMAL(5, 2),PRSTDATE DATE,PRENDATE DATE,MAJPROJ CHAR(6))
+
+
+-----EMP_ACT table
+
+create table EMP_ACT(EMPNO CHAR(6) references employee(EMPNO) ,PROJNO CHAR(6) references PROJECT(PROJNO),
+ACTNO SMALLINT,EMPTIME DECIMAL(5, 2),EMSTDATE DATE,EMENDATE DATE)
+
+---Departemet
+insert into Department values('A00' ,'SPIFFY COMPUTER SERVICE DIV.','000010','A00','che')
+insert into Department values('B01','PLANNING','000020','A00','che')
+insert into Department values('C01','INFORMATION CENTER','000030','A00','che')
+insert into Department values('D01','DEVELOPMENT CENTER', '-','A00','che')
+insert into Department values('D11','MANUFACTURING SYSTEMS','000060','D01','che')
+insert into Department values('D21','ADMINISTRATION SYSTEMS','000070','D01','che')
+insert into Department values('E01','SUPPORT SERVICES','000050','A00','che')
+insert into Department values('E11','OPERATIONS','000090','E01','che')
+insert into Department values('E21','SOFTWARE SUPPORT','000100','E01','che')
+
+-----Employee
+insert into employee values('000010','CHRISTINE','I','HAAS','A00','3978','1965-01-01','PRES',18,'F','1933-08-14',52750.00,1000.00,4220.00)
+insert into employee values('000010','CHRISTINE','I','HAAS','A00','3978','1965-01-01','MANAGER' ,18, 'M', '1948-02-02' ,41250.00, 800.00 ,3300.00)
+insert into employee values('000020','MICHAEL','L', 'THOMPSON', 'B01', '3476' ,'1973-10-10','MANAGER' ,20, 'F','1941-05-11',38250.00,800.00 ,3060.00)
+insert into employee values('000030','SALLY','A', 'KWAN' ,'C01' ,'4738' ,'1975-04-05','MANAGER' ,16, 'M','1925-09-15',40175.00,800.00,3214.00)
+insert into employee values('000050','JOHN','B', 'GEYER' ,'E01' ,'6789' ,'1949-08-17','MANAGER' ,16, 'M','1945-07-07',32250.00,600.00,2580.00)
+insert into employee values('000060','IRVING','F', 'STERN' ,'D11' ,'6423' ,'1973-09-14','MANAGER' ,16, 'F','1953-05-26',36170.00,700.00,2893.00)
+insert into employee values('000070','EVA','D', 'PULASKI' ,'D21' ,'7831' ,'1980-09-30','MANAGER' ,16, 'F' ,'1941-05-15',29750.00,600.00,2380.00)
+insert into employee values('000090','EILEEN','W', 'HENDERSON','E11' ,'5498', '1970-08-15','MANAGER' ,14, 'M','1956-12-18',26150.00,500.00,2092.00)
+insert into employee values('000130','DOLORES','M','QUINTANA','C01','4578','1971-07-28','DESIGNER',16,'M','1947-05-17',25280.00,500.00,2022.00)
+
+
+----Project
+insert into PROJECT values('AD3110','GENERALAD SYSTEMS','D21','000070',6.00,'1982-01-01','1983-02-01','AD3100')
+insert into PROJECT values('PL2100','WELD LINE PLANNING','B01','000020',1.00,'1982-01-01','1982-09-15','MA2100')
+insert into PROJECT values('OP1000','OPERATION SUPPORT','E01','000050',6.00,'1982-01-01','1983-02-01','-')
+insert into PROJECT values('IF2000','USER EDUCATION','C01','000030',1.00,'1982-01-01','1983-02-01','-')
+insert into PROJECT values('MA2110','W L PROGRAMMING','D11','000060', 9.00,'1982-01-01','1983-02-01','MA2100')
+
+
+insert into EMP_ACT values('000020','PL2100',30,1.00,'1982-01-01','1982-09-15')
+insert into EMP_ACT values('000050','OP1000',10,0.25,'1982-01-01','1983-02-01')
+insert into EMP_ACT values('000030','IF2000',10,0.50,'1982-01-01','1983-01-01')
+insert into EMP_ACT values('000010','MA2110',10,1.00,'1982-01-01','1983-02-01')
+
+
+select * from department;
+select * from employee;
+select * from project;
+select * from emp_act;
+
+Problem # 1: Write a query to display the LASTNAME
+concatenated with the JOB, separated by a comma and space, and name the column “Employee and Title”.
+
+solution 1:-
+
+select concat(lastname, ', ', job) as 'employee and title' from employee
+
+Problem # 2: There are 3 coding errors in this statement. Can you identify them?
+           SELECT empno,lastnamesalary  x 12 ANNUAL SALARY
+	     FROM employee
+
+solution 2:-
+
+SELECT empno,lastname,salary*12 as 'annual salary' from employee
+
+
+Problem # 3:  Write a query to combine firstname, lastname, job from the Employee table.
+Separate each column by comma with Alias” THE_OUTPUT”.
+
+solution 3:-
+
+select concat(firstnme,',',lastname,',',job) as the_output from employee
+
+
+Problem # 4: Write a query to display the employee lastname, job, and hiredate of employee hired between 
+January 01, 1965 and May 1 1965. Order the query in ascending order by hiredate.
+
+solution 4:-
+
+select lastname,job,hiredate from employee where hiredate between '1965-01-01' and '1965-05-01'
+ order by hiredate asc
+
+Problem # 5: Write a query to display the manager number and department number for all 
+departments to which a manager has been assigned. The list should be ordered by manager number
+
+solution 5:-
+
+select mgrno,deptno from department where mgrno!='-' order by mgrno
+
+Problem#6: Write a query to display all projects that have SUPPORT as part of the project name. 
+Order the results by project number
+
+solution 6:-
+
+select projno,projname from project where projname like '%support%' order by projno
+
+Problem#7: Write a query to display  all departments that have a 1 as the middle character in the
+Department number. Order the results by department number
+
+solution 7:-
+
+select deptno,deptname from department where deptno like '%_1_%' order by deptno
+
+Problem # 8: Write a query to display the employee number, last name, salary, and bonus for all employees
+that have a bonus ranging from $800 to $1,000. 
+Sort the report by employee number within bonus, lowest bonus first
+
+solution 8:-
+
+select empno,lastname,salary,bonus from employee where bonus between 800 and 1000 order by bonus,empno
+
+Problem # 9: Write a query to display the project no, act_no, start date, end date from EMP_ACT table,
+for all projects that have a project number beginning with PL and have activities 10, 30, and 180 associated 
+with them. Order the list by activity number within project number.
+
+solution 9:-
+
+select projno,actno,emstdate,emendate from emp_act where projno like 'pl%' and actno in (10,30,180)
+order by actno,projno
+
+
+Problem # 10: Write a query to display the last name, salary, and bonus of all male employees
+
+solution 10:-
+
+select lastname,salary,bonus from employee where sex='m'
+
+Problem # 11: Write a query that displays the employee’s last names with the first letter capitalized
+and all other letter lowercase with alias “Name” and the length of the names “Initcap”, for all employee
+Whose name starts with H, T, or A Sort the result by the employee last names.
+
+select concat(upper(substring(lastname,1,1)),lower(substring(lastname,2,length(lastname)-1))) as Name,
+length(lastname) as Initcap from employee where lastname like 'h%'  or lastname like 't%' or lastname like 'a%'
+order by lastname
+
+Problem # 12:
+write query to display employee’s lastname ,firstname,department name with job
+From departments between D02 and D04, and exclude managers from the list.
+Sequence the report on first name within last name, within job, within
+Department name.
+
+solution 12:-
+
+select e.lastname,e.firstnme,d.deptname,e.job from employee e inner join department d 
+on e.workdept=d.deptno where e.job  <> 'manager' and e.workdept between 'a00' and 'f21' order by
+d.deptname,e.job,e.lastname,e.firstnme
+
+
+
+Problem # 13:
+ List the name of each department and the lastname and first name of its manager.
+ Sequence the list by department name. Use the EMPNO and MGRNO columns to relate the two tables.
+ Sequence the result rows by department name. 
+ 
+solution 13:-
+
+select d.deptname,e.lastname,e.firstnme from department d inner join employee e
+on d.mgrno=e.empno where job='manager' order by deptname
+
+Problem # 14: Write a query that displays the employee number and last names of all employees
+who work in a department with manager number from 201 to 205.
+
+solution 14:-
+
+select e.empno,e.lastname from employee e inner join department d on e.workdept=d.deptno
+where d.mgrno between 20 and 60
+
+Problem # 15: Write a query that employees are assigned to project number PL2100? List
+Employee number, last name, and project number. Order the list by employee number and then by project number. 
+
+solution 15:-
+
+
+select e.empno,e.lastname,p.projno from employee e inner join project p on e.workdept=p.deptno
+where p.projno='pl2100' order by e.empno,p.projno
+
+
+Problem # 16:   Write a query to display all projects that have a project number beginning with MA, list project
+number, project name, and activity number.
+List distinct rows once. Order the list by project number and then by activity number
+
+
+solution 16:-
+
+select distinct(p.projno),p.projname,a.actno from project p inner join emp_act a on p.projno=a.projno
+where p.projno like 'ma%' order by projno,actno
+
+Problem # 17: Write a query to display department number, last name, project name, and activity number for
+activities performed by the employees in department A00.
+Sequence the results first by project name and then by activity number
+
+solution 17:-
+
+select e.workdept,e.lastname,p.projname,a.actno from employee e inner join emp_act a on e.empno=a.empno
+inner join project p on a.projno=p.projno where e.workdept='a00' order by p.projname,a.actno;
+
+
+
+select * from employee;
+select * from emp_act;
+select * from project;

@@ -1,0 +1,171 @@
+SQL -> Mysql/oracle/db2 containers
+DDL, DML, DCL, TCL, DQL
+
+DDL:
+
+create database revaturefsd1;
+
+use revaturefsd1;
+
+show tables;
+
+create table customer(id int,name varchar(20));
+
+create table customernew(id int,name varchar(20),address varchar(20));
+
+drop table customer;
+
+describe customernew;
+
+alter table customernew add city varchar(20);
+
+alter table customernew drop column city;
+
+create table customer1234 as select * from customernew; 
+select * from customer1234;
+
+DML:
+
+
+insert into customer1234(id) values(234);
+insert into customer1234(name) values("ram123");
+insert into customer1234 values(300,'Sai');
+insert into customer1234(name,id) values('sai300',302);
+update customer1234 set name='xxx';
+update customer1234 set name='xxx' where id=234;
+
+alter table customernew modify name varchar(50);
+
+insert into customernew values(101,'ram'),(102,'raj'),(103,'kiran');
+
+select * from customernew;
+
+truncate table customernew;
+
+
+DCL:  root, root ....
+grant insert/update/select/delete on revature.table1 to user
+grant delete on revature1.table2 to user2
+
+...
+revoke  delete on revature1.table2 from user2
+
+revoke all on db.table from user3;
+
+TCL:   rollback, commit ,savepoint
+
+update table set col=val where condition;
+..
+...
+savepoint a;
+..
+delete
+..
+savepoint b;
+
+insert
+...
+savepoint c;
+.
+
+rollback to c;  // b    a
+
+rollback   / commit
+
+database logical objects:
+Table -> db logical
+view?
+index?   
+
+order by
+select distint(deptname)  from dept;
+
+select * from table order by 
+
+select sum(salary) from employee;
+10
+20
+20
+10
+20
+30
+10
+
+select deptid,sum(salary) from employee group by deptid having deptid=10;
+10
+
+20
+
+30
+
+
+sum(), avg(), max(),min(),count()
+trim()
+
+create database cbs1;
+use cbs1;
+create table cab(id int primary key,model varchar(20),capacity int);
+show tables;
+alter table cab add(price int);
+desc cab;
+# to add data
+insert into cab values(101,'sedan',6,500);
+insert into cab values(102,'sedan',6,500),(103,'minitaxi',8,800);
+# to query , read, display
+select * from cab;
+# creating table from existing table
+create table newcab as select * from cab;
+select * from newcab;
+truncate newcab ;
+desc newcab;
+create table newcab1 as select * from cab;
+select * from newcab1;
+drop table newcab1;
+
+select * from cab;
+insert into cab values(124,'zeep',6,null),(125,'taxi',6,null);
+insert into cab(id,model) values(106,'zeep');
+insert into cab values(107,'taxi',null,null);
+update cab set capacity=10 where id=103;
+update cab set capacity=4,price=600 where id=104;
+update cab set price=500;
+update cab set price=800 where ((model='sedan') or (model='zeep'));
+select * from cab where not model='sedan';
+select * from cab  where not ((model='sedan') or (model='zeep'));
+select * from cab where id<=105;
+select id,model from cab where id not in(102,104,106);
+select * from cab;
+#delete from cab;   # rollback is possible , truncate rollback is not possible 
+#dml
+delete from cab where capacity=10;  # marked for deleted , logical deletion
+select * from cab order by id desc;
+select concat(id,model)from cab; # ||
+select upper(model) ,lower(model),length(model) from cab;
+select capacity*capacity,abs(price) from cab;
+select sum(capacity),avg(capacity),max(capacity),min(Capacity),count(capacity) from cab;
+
+
+use cbs1;
+select * from cab;
+select count(id),count(price) from cab;
+select model,sum(price) from cab group by model;
+select model,count(price),max(capacity),min(capacity),sum(capacity),avg(price) from cab group by model having model='zeep';
+select count(price),max(capacity),min(capacity),sum(capacity),avg(price) from cab;  # table 
+
+select model from cab where model  not like 't%';
+start transaction;
+select * from cab;
+delete from cab where id=105;
+savepoint d;
+savepoint a;
+delete from cab where id=107;
+savepoint b;
+delete from cab where id=115;
+savepoint c;
+rollback;
+select * from cab;
+delete from cab where id=114;
+rollback to d;
+commit;
+
+
