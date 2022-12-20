@@ -1,0 +1,6 @@
+DELIMITER $$
+CREATE  PROCEDURE sqr(IN x INT,OUT y INT)  
+BEGIN
+    set y=x*x;
+END $$
+DELIMITER ;
