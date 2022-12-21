@@ -1,0 +1,23 @@
+<webapp>
+<servlet>
+    <servlet-name>InitData1</servlet-name>
+    <jsp-file>InitData.jsp</jsp-file>
+    <init-param>
+      <param-name>Institute</param-name>
+      <param-value>Config Software Solutions</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Faculty</param-name>
+      <param-value>S N Rao</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Course</param-name>
+      <param-value>J2EE</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>InitData1</servlet-name>
+    <url-pattern>/myInitData/*</url-pattern>
+  </servlet-mapping>
+</webapp>

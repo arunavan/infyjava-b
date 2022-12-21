@@ -1,0 +1,25 @@
+<taglib>
+	<!-- The version number of this tag library -->
+    <tlibversion>1.0</tlibversion>
+
+    <!-- The JSP specification version required to function -->
+    <jspversion>1.1</jspversion>
+
+	<tag>
+		<name>greeting</name>
+		<tagclass>pack.CustomTagHandler</tagclass>
+	</tag>
+	<tag>
+		<name>greet</name>
+		<tagclass>pack.AttributeGreetingTagHandler</tagclass>
+		<attribute>
+			<name>fname</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>lname</name>
+			<required>false</required>
+		</attribute>
+	</tag>
+	
+</taglib>

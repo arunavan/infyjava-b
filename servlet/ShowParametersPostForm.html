@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>A Sample Form using POST</title>
+</head>
+<body bgcolor="pink">
+<h1 align="center"> A Sample FORM using POST</h1>
+<form action="/Proj2/servlet/ShowParameters" method="POST">
+Item Number: <input type="text" name="itemNum"><br>
+Description:<input type="text" name="description"><br>
+Price Each: <input type="text"name="price" value="$"><br>
+<hr>
+First Name: <input type="text" name="firstName"><br>
+Last Name: <input type="text" name="lastName"><br>
+Middle Initial: <input type="text" name="initial"><br>
+Shipping Address:
+<textarea name="address" rows=3 cols=40></textarea><br>
+Credit Card:<br>
+&nbsp;&nbsp;<input type="radio" name="cardType" value="Visa">Visa<br>
+&nbsp;&nbsp;<input type="radio" name="cardType" value="MasterCard">MasterCard<br>
+&nbsp;&nbsp;<input type="radio" name="cardType" value="Amex">American Express<br>
+&nbsp;&nbsp;<input type="radio" name="cardType" value="Discover">Discover<br>
+&nbsp;&nbsp;<input type="radio" name="cardType" value="Java SmartCard">Java SmartCard<br>
+Credit Card Number:
+<input type="password" name="cardNum"><br>
+Repeat Credit Card Number:
+<input type="password" name="cardNum"><br><br>
+<center><input type="submit" value="Submit Order"></center>
+</form>
+</body>
+</html>
